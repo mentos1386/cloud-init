@@ -415,6 +415,10 @@ class DataSourceAzure(sources.DataSource):
 
         :returns: True if NIC is determined to be primary.
         """
+        print("DEBUGDEBUGDEBUG START")
+        print(self.distro)
+        print("DEBUGDEBUGDEBUG END")
+
         if self._ephemeral_dhcp_ctx is not None:
             raise RuntimeError(
                 "Bringing up networking when already configured."
