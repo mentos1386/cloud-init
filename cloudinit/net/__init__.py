@@ -376,7 +376,7 @@ def device_devid(devname):
 
 def get_devicelist():
     if util.is_FreeBSD() or util.is_DragonFlyBSD():
-        return list(get_interfaces_by_mac().values())
+        return find_candidate_nics()
 
     try:
         devs = os.listdir(get_sys_class_path())
