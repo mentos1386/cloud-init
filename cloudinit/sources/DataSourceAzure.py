@@ -2012,8 +2012,13 @@ def encrypt_pass(password):
 
 def find_primary_nic():
     candidate_nics = net.find_candidate_nics()
+
     if candidate_nics:
-        return candidate_nics[0]
+        if util.is_FreeBSD() or util.is_DragonFlyBSD():
+            """See: https://github.com/canonical/cloud-init/issues/6657"""
+            return list(filter(lambda nic: nic != "mce0", candidate_nics))[0]
+        else:
+            return candidate_nics[0]
 
     return None
 
