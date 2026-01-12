@@ -6,12 +6,22 @@ from cloudinit import subp
 
 class BsdNetOps(netops.NetOps):
     @staticmethod
-    def link_up(interface: str) -> subp.SubpResult:
-        return subp.subp(["ifconfig", interface, "up"])
+    def link_up(
+        interface: str, family: Optional[str] = None
+    ) -> subp.SubpResult:
+        family_args = []
+        if family:
+            family_args = [family]
+        return subp.subp(["ifconfig", interface, *family_args, "up"])
 
     @staticmethod
-    def link_down(interface: str) -> subp.SubpResult:
-        return subp.subp(["ifconfig", interface, "down"])
+    def link_down(
+        interface: str, family: Optional[str] = None
+    ) -> subp.SubpResult:
+        family_args = []
+        if family:
+            family_args = [family]
+        return subp.subp(["ifconfig", interface, *family_args, "down"])
 
     @staticmethod
     def add_route(
